@@ -40,7 +40,7 @@
       document.addEventListener("DOMContentLoaded", renderTheme);
     })();
   </script>
-  <link rel="stylesheet" href="./styles.css?v=20261030h">
+  <link rel="stylesheet" href="./styles.css?v=20261030i">
 </head>
 <body>
   <div class="ambient ambient-a" aria-hidden="true"></div>
@@ -103,7 +103,7 @@
     <section id="scenarios" class="section">
       <div class="section-title"><div><span class="section-index">03 <i></i> 情景对比</span><h2>如果产业的<span class="gradient-text">瓶颈改变</span>？</h2><p>使用假设参数的四部门模型，比较不同冲击下的产能、成本与 AI 能力。扩产资金包括模型内部投资与单独设定的外部项目融资，资金规模未经实证校准。</p></div><span class="section-trail">相对指数 · 假设情景模拟（非真实预测）</span></div>
       <div class="scenario-controls"><div id="scenarioChips" class="chip-row" aria-label="选择模拟情景"></div><div class="select-wrap compact"><label for="scenarioMetric">展示指标</label><select id="scenarioMetric"><option value="A">AI 能力指数</option><option value="delivered">模拟交付量指数</option><option value="market_price">市场采购价格</option><option value="physical_cost">生产成本指数</option></select></div></div>
-      <div class="panel chart-panel"><div class="panel-heading"><div><span class="overline">情景走势对比 · 2026—2040</span><h3 id="scenarioChartTitle">AI 能力指数随时间变化</h3><p>选择「基准」时仅显示基准曲线；选择其他情景时增加虚线进行对比。数值均为模型指数，不是真实预测值。</p></div><div class="simulation-label"><span class="live-dot yellow"></span> 基于假设</div></div><div class="plot-shell"><div class="plot-label">相对指数 · 假设模拟（非预测）</div><div id="scenarioChart" class="plot" role="img" aria-label="基准和反事实模型年度对比"></div></div><div class="panel-footer"><span><span class="key-line"></span>基准情景 <span id="scenarioAlternativeLegend"><span class="key-line dashed"></span><span id="scenarioLegend">HBM 产能突破</span></span></span><span>模拟结果 ≠ 未来预测</span></div></div>
+      <div class="panel chart-panel"><div class="panel-heading"><div><span class="overline">情景走势对比 · 2026—2040</span><h3 id="scenarioChartTitle">AI 能力指数随时间变化</h3><p>五种情景始终叠加展示。点击上方情景按钮可高亮对应曲线，其余曲线淡化，便于比较。数值均为模型指数，不是真实预测值。</p></div><div class="simulation-label"><span class="live-dot yellow"></span> 基于假设</div></div><div class="plot-shell"><div class="plot-label">相对指数 · 假设模拟（非预测）</div><div id="scenarioChart" class="plot" role="img" aria-label="基准和反事实模型年度对比"></div></div><div class="panel-footer"><span id="scenarioAllLegend" class="scenario-all-legend" aria-label="五种情景图例"></span><span class="sr-only" id="scenarioLegend">HBM 产能突破</span><span>模拟结果 ≠ 未来预测</span></div></div>
       <div class="panel capacity-panel"><div class="capacity-header"><div><span class="overline">产业链产能结构</span><h3>每个环节，都可能成为新瓶颈</h3><p>拖动年份，查看各产业环节在模型中的相对产能指数（不是实际产量）。</p></div><div class="year-pill" id="yearReadout">2032</div></div><div class="year-slider"><span>2026</span><input type="range" id="yearRange" min="2026" max="2040" step="1" value="2032" aria-label="选择模拟年份"><span>2040</span></div><div id="capacityBars" class="capacity-bars"></div><div class="capacity-note"><span class="mini-icon">!</span><span id="capacityNote">最小部门产能决定交付上限。</span></div></div>
     </section>
 
@@ -119,7 +119,7 @@
   </main>
   <footer><div class="shell footer-inner"><div><span class="brand-mark small">F<span>·</span>O</span><span>FEEDBACK OBSERVATORY</span></div><span>开放研究 PROJECT · DATA NOT FINANCIAL OR TECHNOLOGY FORECASTS</span><a href="https://github.com/ifrvn/ai-semiconductor-feedback" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></footer>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-  <script src="./i18n.js?v=20261030h" defer></script>
-  <script src="./app.js?v=20261030h" defer></script>
+  <script src="./i18n.js?v=20261030i" defer></script>
+  <script src="./app.js?v=20261030i" defer></script>
 </body>
 </html>

@@ -127,6 +127,8 @@
     const trimmed=source.trim();
     if(Object.prototype.hasOwnProperty.call(translations,trimmed))
       return source.replace(trimmed,translations[trimmed]);
+    const capacity=source.match(/^(\\d{4}) 年：(.+?)构成供给瓶颈。需求 ([\\d.]+)，实际交付 ([\\d.]+)，市场价格指数 ([\\d.]+)。模型数据，非真实预测。$/);
+    if(capacity)return `${capacity[1]}: ${translations[capacity[2]]||capacity[2]} is the supply bottleneck. Demand ${capacity[3]}; delivered ${capacity[4]}; market price index ${capacity[5]}. Model output, not a forecast.`;
     let result=source;
     for(const [zh,en] of Object.entries(translations).sort((a,b)=>b[0].length-a[0].length)){
       if(zh.length>1&&result.includes(zh))result=result.split(zh).join(en);

@@ -67,6 +67,16 @@ python -m feedback_lab.evidence --output results/evidence_audit.json
 
 The output explicitly flags the sector-wide feedback parameters as **unidentified**. The `feedback_lab.identification.did_2x2` utility provides a paired pre/post comparison for a future project-level treated/control panel (not yet available); it does **not** manufacture effect estimates or statistical confidence.
 
+## Cost transmission from AI-assisted chip R&D (Phase 3)
+
+The [pass-through model](docs/cost_transmission.md) separates source-derived accelerator component costs from **hypothetical** data-center cost shares, yield gains, design-time productivity, and realized workload throughput. It avoids interpreting local EDA gains as industry-wide savings.
+
+```bash
+python -m feedback_lab.transmission --output results/transmission.json
+```
+
+The report includes disjoint cost accounts, hypothetical interventions, one-at-a-time sensitivity using 2024 vs 2025 component mixes, and a one-time cost-shock bridge into the five-state simulator (explicitly **not calibrated**). Source: [Epoch AI component shares](https://epoch.ai/data-insights/ai-chip-component-cost-shares), 2026-05-21.
+
 ## Research agenda
 
 1. Build a provenance-controlled dataset from primary sources, with dated observations, units, inflation adjustment and uncertainty intervals.

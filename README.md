@@ -77,6 +77,16 @@ python -m feedback_lab.transmission --output results/transmission.json
 
 The report includes disjoint cost accounts, hypothetical interventions, one-at-a-time sensitivity using 2024 vs 2025 component mixes, and a one-time cost-shock bridge into the five-state simulator (explicitly **not calibrated**). Source: [Epoch AI component shares](https://epoch.ai/data-insights/ai-chip-component-cost-shares), 2026-05-21.
 
+## Dynamic chip-component feedback (Phase 4)
+
+The [dynamic component model](docs/dynamic_components.md) integrates separate normalized cost paths for HBM, logic, packaging, auxiliary parts, networking and energy, as well as independent compute/memory/network throughput and power headroom. It **replaces** the aggregate cost differential equation inside this experiment with a derived effective-compute price, preventing duplicate savings. All coefficients are hypothetical.
+
+```bash
+python -m feedback_lab.dynamic_experiments --output results/dynamic_components.csv
+```
+
+Five scenarios compare baseline trends, removal of AI-to-chip feedback, a hypothetical memory breakthrough, an energy bottleneck, and faster logic progress alone. See [assumptions and limitations](docs/dynamic_components.md). These runs are not empirical forecasts.
+
 ## Research agenda
 
 1. Build a provenance-controlled dataset from primary sources, with dated observations, units, inflation adjustment and uncertainty intervals.

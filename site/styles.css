@@ -201,3 +201,6 @@ html[data-theme="light"] .chart-tooltip{background:#fff;color:#203a42;border-col
 html[data-theme="light"] .chart-tooltip-title{color:#426a70}
 html[data-theme="light"] .chart-tooltip-row strong{color:#163b42}
 @media(max-width:750px){.chart-tooltip{min-width:165px;padding:10px 12px;font-size:12px}.chart-tooltip-row strong,.chart-tooltip-title{font-size:12px}}
+
+/* Position is now computed in chart-local CSS pixels; no centering transform. */
+.chart-tooltip{transform:none;box-sizing:border-box}

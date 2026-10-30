@@ -105,6 +105,24 @@ The [uncertainty study](docs/uncertainty.md) draws reproducible, analyst-defined
 python -m feedback_lab.uncertainty --samples 200 --seed 20261030 --output results/uncertainty.json
 ```
 
+## Real historical proxy validation (Phase 7)
+
+The [empirical validation report](docs/empirical_validation.md) tests observed Epoch AI accelerator theoretical performance per dollar on a 2025 holdout and leakage-free rolling one- and four-quarter horizons, compared with last-value and historical-drift baselines. The SIA sales data are audited as revenue, **not** modeled as semiconductor physical capacity. Neither dataset identifies causal AI-to-chip feedback.
+
+```bash
+python -m feedback_lab.empirical_validation --output results/empirical_validation.json
+```
+
+Results on rounded, grouped quarterly data (log RMSE, lower better):
+
+| Evaluation | Last value | Historical drift | Log-linear |
+| --- | ---: | ---: | ---: |
+| 2025 holdout | 0.473 | **0.342** | 0.486 |
+| Expanding 1-quarter | 0.144 | **0.112** | 0.214 |
+| Expanding 4-quarter | 0.611 | **0.545** | 0.585 |
+
+These are *small-sample out-of-time diagnostics*, not evidence that the drift baseline will always win or that a structural feedback coefficient has been calibrated.
+
 ## Research agenda
 
 1. Build a provenance-controlled dataset from primary sources, with dated observations, units, inflation adjustment and uncertainty intervals.

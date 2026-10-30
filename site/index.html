@@ -85,17 +85,7 @@
 
     <section id="evidence" class="section">
       <div class="section-title"><div><span class="section-index">01 <i></i> OBSERVED DATA</span><h2>历史数据 <em>不是预测</em></h2><p>从已公开的季度加速器价格性能数据，观察硬件经济性的实际变化。</p></div><span class="section-trail">EPOCH AI / 2023—2025</span></div>
-      <details class="scenario-method" id="scenarioMethod">
-        <summary>模拟方法与情景参数 <span>查看具体公式、假设及局限</span></summary>
-        <div class="scenario-method-body">
-          <p><strong>研究性质：</strong>四部门结构性情景模拟，不是对 2030—2040 年芯片产量、价格或 AI 能力的实证预测。所有产能与交付指标为相对指数，不是晶圆片数、HBM 颗粒数或兆瓦。</p>
-          <p><strong>供需与价格：</strong>每年的交付量 = min(需求量、晶圆产能、HBM 产能、先进封装产能、电力产能)；市场采购价格 = 生产成本指数 × 稀缺加价系数。需求按假设增长率和资本状态变化，加价系数随供需缺口变化且设有上限。</p>
-          <p><strong>投资与扩产：</strong>年度扩产资金 = 0.36 × 资本存量 B + 0.75 单位外部项目融资。资金按照基础权重及需求/产能缺口分配到四部门；新投资必须经过各自建设延迟（晶圆 3 年、HBM 2.5 年、封装 2 年、电力 4 年）才形成产能。各部门产能每年仍按设定折旧率减少。</p>
-          <p><strong>渐进冲击：</strong>使用持续 3 年的乘数变化，而非某一年突然跳变。对冲击部门，在变化区间内额外施加年化变化率 ln(M)/3；M 为情景乘数。累计效应在三年内从 1 逐渐过渡到 M，并叠加正常扩产和折旧。HBM：2031—2034 年，M=1.60；先进封装：2030—2033 年，M=0.65；电力：2030—2033 年，M=0.65。</p>
-          <p><strong>AI 反馈：</strong>AI 能力增长取决于可用于研发的算力、能力上限及衰减；“关闭 AI 芯片反馈”只关闭 AI 对芯片成本改善的假设项，并不关闭所有 AI 能力增长。</p>
-          <p><strong>边界与局限：</strong>假定 2026 年前没有在建项目的投资承诺；未模拟库存、部门替代、项目取消、真实融资约束或随机建设周期。融资、效率、冲击幅度及年份均未经真实产业数据校准。可在 <a href="https://github.com/ifrvn/ai-semiconductor-feedback/blob/main/docs/sector_capacity.md" target="_blank" rel="noopener noreferrer">模型技术文档</a> 查看公式和代码依据。</p>
-        </div>
-      </details>
+
       <div class="panel chart-panel">
         <div class="panel-heading"><div><span class="overline">HARDWARE ECONOMICS</span><h3>AI 加速器性能与推算单位成本</h3><p>按销售金额加权计算的理论算力性价比；未计入实际使用率、网络和电力成本。</p></div><div class="segmented" id="historyMetric"><button class="selected" data-metric="performance_per_usd">每美元理论性能</button><button data-metric="implied_unit_cost">推算单位成本</button></div></div>
         <div class="plot-shell"><div class="plot-label">相对指数 <span>·</span> 2025 H100 参考单位</div><div id="historyChart" class="plot" role="img" aria-label="2023 到 2025 年季度历史趋势折线图"></div></div>
@@ -115,6 +105,17 @@
       <div class="section-title"><div><span class="section-index">03 <i></i> 情景对比</span><h2>如果产业的<span class="gradient-text">瓶颈改变</span>？</h2><p>使用假设参数的四部门模型，比较不同冲击下的产能、成本与 AI 能力。扩产资金包括模型内部投资与单独设定的外部项目融资，资金规模未经实证校准。</p></div><span class="section-trail">相对指数 · 假设情景模拟（非真实预测）</span></div>
       <div class="scenario-controls"><div id="scenarioChips" class="chip-row" aria-label="选择模拟情景"></div><div class="select-wrap compact"><label for="scenarioMetric">展示指标</label><select id="scenarioMetric"><option value="A">AI 能力指数</option><option value="delivered">模拟交付量指数</option><option value="market_price">市场采购价格</option><option value="physical_cost">生产成本指数</option></select></div></div>
       <div class="panel chart-panel"><div class="panel-heading"><div><span class="overline">情景走势对比 · 2026—2040</span><h3 id="scenarioChartTitle">AI 能力指数随时间变化</h3><p>五种情景始终叠加展示。点击上方情景按钮可高亮对应曲线，其余曲线淡化，便于比较。数值均为模型指数，不是真实预测值。</p></div><div class="simulation-label"><span class="live-dot yellow"></span> 基于假设</div></div><div class="plot-shell"><div class="plot-label">相对指数 · 假设模拟（非预测）</div><div id="scenarioChart" class="plot" role="img" aria-label="基准和反事实模型年度对比"></div></div><div class="panel-footer"><span id="scenarioAllLegend" class="scenario-all-legend" aria-label="五种情景图例"></span><span class="sr-only" id="scenarioLegend">HBM 产能突破</span><span>模拟结果 ≠ 未来预测</span></div></div>
+      <details class="scenario-method" id="scenarioMethod">
+        <summary>模拟方法与情景参数 <span>查看具体公式、假设及局限</span></summary>
+        <div class="scenario-method-body">
+          <p><strong>研究性质：</strong>四部门结构性情景模拟，不是对 2030—2040 年芯片产量、价格或 AI 能力的实证预测。所有产能与交付指标为相对指数，不是晶圆片数、HBM 颗粒数或兆瓦。</p>
+          <p><strong>供需与价格：</strong>每年的交付量 = min(需求量、晶圆产能、HBM 产能、先进封装产能、电力产能)；市场采购价格 = 生产成本指数 × 稀缺加价系数。需求按假设增长率和资本状态变化，加价系数随供需缺口变化且设有上限。</p>
+          <p><strong>投资与扩产：</strong>年度扩产资金 = 0.36 × 资本存量 B + 0.75 单位外部项目融资。资金按照基础权重及需求/产能缺口分配到四部门；新投资必须经过各自建设延迟（晶圆 3 年、HBM 2.5 年、封装 2 年、电力 4 年）才形成产能。各部门产能每年仍按设定折旧率减少。</p>
+          <p><strong>渐进冲击：</strong>使用持续 3 年的乘数变化，而非某一年突然跳变。对冲击部门，在变化区间内额外施加年化变化率 ln(M)/3；M 为情景乘数。累计效应在三年内从 1 逐渐过渡到 M，并叠加正常扩产和折旧。HBM：2031—2034 年，M=1.60；先进封装：2030—2033 年，M=0.65；电力：2030—2033 年，M=0.65。</p>
+          <p><strong>AI 反馈：</strong>AI 能力增长取决于可用于研发的算力、能力上限及衰减；“关闭 AI 芯片反馈”只关闭 AI 对芯片成本改善的假设项，并不关闭所有 AI 能力增长。</p>
+          <p><strong>边界与局限：</strong>假定 2026 年前没有在建项目的投资承诺；未模拟库存、部门替代、项目取消、真实融资约束或随机建设周期。融资、效率、冲击幅度及年份均未经真实产业数据校准。可在 <a href="https://github.com/ifrvn/ai-semiconductor-feedback/blob/main/docs/sector_capacity.md" target="_blank" rel="noopener noreferrer">模型技术文档</a> 查看公式和代码依据。</p>
+        </div>
+      </details>
       <div class="panel capacity-panel"><div class="capacity-header"><div><span class="overline">产业链产能结构</span><h3>每个环节，都可能成为新瓶颈</h3><p>拖动年份，查看各产业环节在模型中的相对产能指数（不是实际产量）。</p></div><div class="year-pill" id="yearReadout">2032</div></div><div class="year-slider"><span>2026</span><input type="range" id="yearRange" min="2026" max="2040" step="1" value="2032" aria-label="选择模拟年份"><span>2040</span></div><div id="capacityBars" class="capacity-bars"></div><div class="capacity-note"><span class="mini-icon">!</span><span id="capacityNote">最小部门产能决定交付上限。</span></div></div>
     </section>
 

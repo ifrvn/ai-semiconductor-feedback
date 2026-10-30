@@ -5,7 +5,7 @@ or megawatts. Investment is a flow, capital a stock, with fixed sector delays.
 """
 from __future__ import annotations
 from dataclasses import dataclass, replace
-from math import exp, isfinite
+from math import exp, isfinite, log
 
 SECTORS=("wafer","hbm","packaging","power")
 
@@ -42,6 +42,7 @@ class SectorParams:
     shock_year: float|None=None
     shock_sector: str="hbm"
     shock_multiplier: float=1.
+    shock_duration: float=3.
 
     def validate(self):
         for k in ("initial_capacity","build_delay","depreciation","capex_productivity",
@@ -61,7 +62,7 @@ class SectorParams:
                   "ai_research_fraction","external_funding","revenue_per_delivery",
                   "reinvestment_fraction","capital_decay","expansion_project_financing",
                   "capacity_gap_response","maximum_gap_ratio","ai_ability_gain",
-                  "ai_compute_exponent","ai_ceiling","ai_decay","shock_multiplier"):
+                  "ai_compute_exponent","ai_ceiling","ai_decay","shock_multiplier","shock_duration"):
             v=getattr(self,k)
             if not isfinite(v) or v<0:
                 raise ValueError(f"{k} must be nonnegative and finite")
@@ -69,6 +70,8 @@ class SectorParams:
             raise ValueError("Bad price floor, demand or markup")
         if self.investment_fraction+self.ai_research_fraction>1:
             raise ValueError("Annual capital allocation exceeds available stock")
+        if self.shock_multiplier<=0 or self.shock_duration<=0:
+            raise ValueError("Shock multiplier and duration must be positive")
         if self.shock_sector not in SECTORS:
             raise ValueError("Unknown shock sector")
         if self.shock_year is not None and not isfinite(self.shock_year):
@@ -112,7 +115,6 @@ def simulate_sectors(p:SectorParams=SectorParams(), *, end_year:float=2045.,
     costs=[1.]*4
     # initial pre-history and contemporaneous investment at t0
     history=[(start_year-max(p.build_delay)-1,(0.,)*4)]
-    shock_done=False
     output=[]
     while True:
         demand=p.initial_demand*exp(p.demand_growth*(year-start_year))*B**p.demand_income_elasticity
@@ -143,18 +145,23 @@ def simulate_sectors(p:SectorParams=SectorParams(), *, end_year:float=2045.,
         # Revenue proxy depends on physical deliveries, not hypothetical demand.
         dB=p.external_funding+p.reinvestment_fraction*p.revenue_per_delivery*delivered-(
             p.investment_fraction+p.ai_research_fraction+p.capital_decay)*B
+        # Smooth, cumulative multiplicative shock across a fixed time window.
+        # The integral of the additional growth rate is log(shock_multiplier).
+        # This models a relative capacity shock, not a direct shipment forecast.
+        shock_overlap=0.
+        if p.shock_year is not None:
+            shock_overlap=max(0.,min(year+step,p.shock_year+p.shock_duration)
+                              -max(year,p.shock_year))
         for i in range(4):
             capacities[i]=max(1e-10,capacities[i]+step*(
                 p.capex_productivity[i]*lagged[i]-p.depreciation[i]*capacities[i]))
+            if shock_overlap and SECTORS[i]==p.shock_sector:
+                capacities[i]*=exp(log(p.shock_multiplier)*shock_overlap/p.shock_duration)
             cost_rate=p.natural_cost_progress[i]+p.ai_cost_progress[i]*signal
             costs[i]=p.cost_floor+(costs[i]-p.cost_floor)*exp(-cost_rate*step)
         A=max(1e-10,A+dA*step)
         B=max(1e-10,B+dB*step)
-        before=year
         year=round(year+step,10)
-        if p.shock_year is not None and not shock_done and before<p.shock_year<=year:
-            capacities[SECTORS.index(p.shock_sector)]*=p.shock_multiplier
-            shock_done=True
         if not all(isfinite(v) for v in (A,B,*capacities,*costs)):
             raise ArithmeticError("Non-finite state")
     return output
@@ -164,7 +171,7 @@ def scenarios()->dict[str,SectorParams]:
     return {
         "baseline":base,
         "no_ai_chip_feedback":replace(base,chip_feedback=False),
-        "hbm_capacity_breakthrough":replace(base,shock_year=2032.,shock_sector="hbm",shock_multiplier=1.6),
-        "packaging_shortage":replace(base,shock_year=2031.,shock_sector="packaging",shock_multiplier=.65),
-        "power_shortage":replace(base,shock_year=2031.,shock_sector="power",shock_multiplier=.65),
+        "hbm_capacity_breakthrough":replace(base,shock_year=2031.,shock_sector="hbm",shock_multiplier=1.6),
+        "packaging_shortage":replace(base,shock_year=2030.,shock_sector="packaging",shock_multiplier=.65),
+        "power_shortage":replace(base,shock_year=2030.,shock_sector="power",shock_multiplier=.65),
     }

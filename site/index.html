@@ -40,7 +40,7 @@
       document.addEventListener("DOMContentLoaded", renderTheme);
     })();
   </script>
-  <link rel="stylesheet" href="./styles.css?v=20261030f">
+  <link rel="stylesheet" href="./styles.css?v=20261030g">
 </head>
 <body>
   <div class="ambient ambient-a" aria-hidden="true"></div>
@@ -60,11 +60,11 @@
   <main id="top" class="shell">
     <section class="hero">
       <div class="hero-content">
-        <div class="eyebrow"><span class="pulse"></span> RESEARCH DASHBOARD <span class="eyebrow-line"></span> V1.0 / 2026</div>
+        <div class="eyebrow"><span class="pulse"></span> 产业研究看板 <span class="eyebrow-line"></span> V1.0 / 2026</div>
         <h1>当人工智能<br>遇见<span class="accent-gradient">半导体工业</span><span class="dot">.</span></h1>
         <p class="lead">AI 的进步能否加速芯片研发、压低算力成本，并再次推动 AI 自身？从真实历史数据出发，探索这场产业反馈循环的边界与可能性。</p>
         <div class="hero-actions"><a class="primary-action" href="#evidence">探索研究数据 <span>↗</span></a><a class="text-action" href="#methodology">了解研究方法 <span>↘</span></a></div>
-        <div class="hero-foot"><span class="live-dot"></span> HISTORICAL OBSERVATIONS <span class="slash">/</span> ILLUSTRATIVE SIMULATIONS <span class="slash">/</span> OPEN RESEARCH</div>
+        <div class="hero-foot"><span class="live-dot"></span> 历史观测 <span class="slash">/</span> 假设模拟 <span class="slash">/</span> 开放研究</div>
       </div>
       <div class="hero-art" aria-hidden="true">
         <div class="orbit o1"></div><div class="orbit o2"></div><div class="orbit o3"></div>
@@ -77,47 +77,47 @@
     <div class="disclosure"><span class="disclosure-icon">i</span><div><strong>研究范围说明</strong><p>历史观测数据与模型模拟分开展示。目前仅检验了硬件性能与价格指标的历史预测效果；未来产业情景、建设延迟及 AI 对芯片产业的影响强度尚未用真实数据验证，因此模拟结果不代表未来预测。</p></div></div>
 
     <section class="metrics" aria-label="研究摘要">
-      <article class="metric"><div class="metric-top"><span>01 / HARDWARE TREND</span><span class="metric-arrow">↗</span></div><div class="metric-value"><span id="trendValue">—</span><small>% / YR</small></div><p>样本内性能/价格年化增长率</p><span class="metric-source">2023–2025 · Epoch AI 分组数据</span></article>
-      <article class="metric"><div class="metric-top"><span>02 / OUT-OF-TIME TEST</span><span class="metric-arrow">↗</span></div><div class="metric-value"><span id="holdoutValue">—</span><small>LOG RMSE</small></div><p>2025 年预测检验：最低误差</p><span class="metric-source">基于过去数据进行预测</span></article>
-      <article class="metric"><div class="metric-top"><span>03 / PRODUCTION SYSTEM</span><span class="metric-arrow">↗</span></div><div class="metric-value">04<small>SECTORS</small></div><p>独立建模的产业产能部门</p><span class="metric-source">晶圆 · HBM · 封装 · 电力</span></article>
-      <article class="metric"><div class="metric-top"><span>04 / IDENTIFICATION</span><span class="metric-arrow">!</span></div><div class="metric-value metric-status">NOT <small>IDENTIFIED</small></div><p>AI→芯片产业的因果系数</p><span class="metric-source">尚无足够数据证明因果影响</span></article>
+      <article class="metric"><div class="metric-top"><span>01 / 硬件趋势</span><span class="metric-arrow">↗</span></div><div class="metric-value"><span id="trendValue">—</span><small>% / 年</small></div><p>样本内性能/价格年化增长率</p><span class="metric-source">2023–2025 · Epoch AI 分组数据</span></article>
+      <article class="metric"><div class="metric-top"><span>02 / 历史预测检验</span><span class="metric-arrow">↗</span></div><div class="metric-value"><span id="holdoutValue">—</span><small>对数误差</small></div><p>2025 年预测检验：最低误差</p><span class="metric-source">基于过去数据进行预测</span></article>
+      <article class="metric"><div class="metric-top"><span>03 / 产能系统</span><span class="metric-arrow">↗</span></div><div class="metric-value">04<small>个环节</small></div><p>独立建模的产业产能部门</p><span class="metric-source">晶圆 · HBM · 封装 · 电力</span></article>
+      <article class="metric"><div class="metric-top"><span>04 / 因果证据</span><span class="metric-arrow">!</span></div><div class="metric-value metric-status">尚未 <small>证实</small></div><p>AI→芯片产业的因果系数</p><span class="metric-source">尚无足够数据证明因果影响</span></article>
     </section>
 
     <section id="evidence" class="section">
       <div class="section-title"><div><span class="section-index">01 <i></i> OBSERVED DATA</span><h2>历史数据 <em>不是预测</em></h2><p>从已公开的季度加速器价格性能数据，观察硬件经济性的实际变化。</p></div><span class="section-trail">EPOCH AI / 2023—2025</span></div>
       <div class="panel chart-panel">
         <div class="panel-heading"><div><span class="overline">HARDWARE ECONOMICS</span><h3>AI 加速器性能与推算单位成本</h3><p>按销售金额加权计算的理论算力性价比；未计入实际使用率、网络和电力成本。</p></div><div class="segmented" id="historyMetric"><button class="selected" data-metric="performance_per_usd">每美元理论性能</button><button data-metric="implied_unit_cost">推算单位成本</button></div></div>
-        <div class="plot-shell"><div class="plot-label">NORMALIZED INDEX <span>·</span> 2025 H100 参考单位</div><div id="historyChart" class="plot" role="img" aria-label="2023 到 2025 年季度历史趋势折线图"></div></div>
+        <div class="plot-shell"><div class="plot-label">相对指数 <span>·</span> 2025 H100 参考单位</div><div id="historyChart" class="plot" role="img" aria-label="2023 到 2025 年季度历史趋势折线图"></div></div>
         <div class="panel-footer"><span><span class="key-dot cyan"></span>历史观测 · 12 季度</span><a id="epochSource" href="https://epoch.ai/data-insights/chip-performance-per-dollar" target="_blank" rel="noopener noreferrer">数据来源 Epoch AI ↗</a></div>
       </div>
     </section>
 
     <section id="validation" class="section">
-      <div class="section-title"><div><span class="section-index">02 <i></i> MODEL VALIDATION</span><h2>让预测接受<span class="gradient-text">检验</span></h2><p>用过去的数据预测之后的季度，再与实际结果比较，检验模型能否预测未知数据。</p></div><span class="section-trail">OUT-OF-TIME / NO LEAKAGE</span></div>
+      <div class="section-title"><div><span class="section-index">02 <i></i> 模型检验</span><h2>让预测接受<span class="gradient-text">检验</span></h2><p>用过去的数据预测之后的季度，再与实际结果比较，检验模型能否预测未知数据。</p></div><span class="section-trail">按时间检验 · 避免未来信息泄漏</span></div>
       <div class="validation-grid">
-        <div class="panel validation-main"><div class="panel-heading"><div><span class="overline">MODEL COMPARISON</span><h3>历史数据预测效果对比</h3><p>使用对数均方根误差（Log RMSE）比较预测结果，数值越小越准确。</p></div></div><div class="select-wrap"><label for="validationSelect">评估窗口</label><select id="validationSelect"><option value="holdout">2025 年预测检验</option><option value="rolling_1q">滚动 · 下一季度</option><option value="rolling_4q">滚动 · 四季度后</option></select></div><div id="validationBars" class="validation-bars"></div><div class="panel-footer"><span>误差单位 / LOG RMSE</span><span id="validationCount">—</span></div></div>
+        <div class="panel validation-main"><div class="panel-heading"><div><span class="overline">预测方法对比</span><h3>历史数据预测效果对比</h3><p>使用对数均方根误差（Log RMSE）比较预测结果，数值越小越准确。</p></div></div><div class="select-wrap"><label for="validationSelect">评估窗口</label><select id="validationSelect"><option value="holdout">2025 年预测检验</option><option value="rolling_1q">滚动 · 下一季度</option><option value="rolling_4q">滚动 · 四季度后</option></select></div><div id="validationBars" class="validation-bars"></div><div class="panel-footer"><span>误差单位 / LOG RMSE</span><span id="validationCount">—</span></div></div>
         <aside class="panel insight-panel"><span class="overline">RESEARCH INSIGHT / 01</span><div class="insight-number">≠</div><h3>拟合得更好<br>不等于预测得更好。</h3><p>即使历史数据呈上升趋势，对数线性拟合也不一定在留出季度中优于更简单的基准。</p><div class="insight-rule"></div><span class="insight-caption">小样本结果 · 不保证未来仍然成立</span></aside>
       </div>
     </section>
 
     <section id="scenarios" class="section">
-      <div class="section-title"><div><span class="section-index">03 <i></i> COUNTERFACTUALS</span><h2>如果产业的<span class="gradient-text">瓶颈改变</span>？</h2><p>使用假设参数的四部门模型，比较不同冲击下的产能、成本与 AI 能力。扩产资金包括模型内部投资与单独设定的外部项目融资，资金规模未经实证校准。</p></div><span class="section-trail">相对指数 · 假设情景模拟（非真实预测）</span></div>
+      <div class="section-title"><div><span class="section-index">03 <i></i> 情景对比</span><h2>如果产业的<span class="gradient-text">瓶颈改变</span>？</h2><p>使用假设参数的四部门模型，比较不同冲击下的产能、成本与 AI 能力。扩产资金包括模型内部投资与单独设定的外部项目融资，资金规模未经实证校准。</p></div><span class="section-trail">相对指数 · 假设情景模拟（非真实预测）</span></div>
       <div class="scenario-controls"><div id="scenarioChips" class="chip-row" aria-label="选择模拟情景"></div><div class="select-wrap compact"><label for="scenarioMetric">展示指标</label><select id="scenarioMetric"><option value="A">AI 能力指数</option><option value="delivered">模拟交付量指数</option><option value="market_price">市场采购价格</option><option value="physical_cost">生产成本指数</option></select></div></div>
-      <div class="panel chart-panel"><div class="panel-heading"><div><span class="overline">SCENARIO COMPARISON · 2026—2040</span><h3 id="scenarioChartTitle">AI 能力指数随时间变化</h3><p>实线表示正常假设下的基准结果，虚线表示改变某项条件后的对比结果。数值均为便于比较的模型指数，不是真实预测值。</p></div><div class="simulation-label"><span class="live-dot yellow"></span> ASSUMPTION-BASED</div></div><div class="plot-shell"><div class="plot-label">NORMALIZED / ILLUSTRATIVE</div><div id="scenarioChart" class="plot" role="img" aria-label="基准和反事实模型年度对比"></div></div><div class="panel-footer"><span><span class="key-line"></span>基准情景 <span class="key-line dashed"></span><span id="scenarioLegend">HBM 产能突破</span></span><span>模拟结果 ≠ 未来预测</span></div></div>
-      <div class="panel capacity-panel"><div class="capacity-header"><div><span class="overline">SUPPLY CHAIN ANATOMY</span><h3>每个环节，都可能成为新瓶颈</h3><p>拖动年份，查看各产业环节在模型中的相对产能指数（不是实际产量）。</p></div><div class="year-pill" id="yearReadout">2032</div></div><div class="year-slider"><span>2026</span><input type="range" id="yearRange" min="2026" max="2040" step="1" value="2032" aria-label="选择模拟年份"><span>2040</span></div><div id="capacityBars" class="capacity-bars"></div><div class="capacity-note"><span class="mini-icon">!</span><span id="capacityNote">最小部门产能决定交付上限。</span></div></div>
+      <div class="panel chart-panel"><div class="panel-heading"><div><span class="overline">情景走势对比 · 2026—2040</span><h3 id="scenarioChartTitle">AI 能力指数随时间变化</h3><p>实线表示正常假设下的基准结果，虚线表示改变某项条件后的对比结果。数值均为便于比较的模型指数，不是真实预测值。</p></div><div class="simulation-label"><span class="live-dot yellow"></span> 基于假设</div></div><div class="plot-shell"><div class="plot-label">NORMALIZED / ILLUSTRATIVE</div><div id="scenarioChart" class="plot" role="img" aria-label="基准和反事实模型年度对比"></div></div><div class="panel-footer"><span><span class="key-line"></span>基准情景 <span class="key-line dashed"></span><span id="scenarioLegend">HBM 产能突破</span></span><span>模拟结果 ≠ 未来预测</span></div></div>
+      <div class="panel capacity-panel"><div class="capacity-header"><div><span class="overline">产业链产能结构</span><h3>每个环节，都可能成为新瓶颈</h3><p>拖动年份，查看各产业环节在模型中的相对产能指数（不是实际产量）。</p></div><div class="year-pill" id="yearReadout">2032</div></div><div class="year-slider"><span>2026</span><input type="range" id="yearRange" min="2026" max="2040" step="1" value="2032" aria-label="选择模拟年份"><span>2040</span></div><div id="capacityBars" class="capacity-bars"></div><div class="capacity-note"><span class="mini-icon">!</span><span id="capacityNote">最小部门产能决定交付上限。</span></div></div>
     </section>
 
     <section id="uncertainty" class="section">
-      <div class="section-title"><div><span class="section-index">04 <i></i> UNCERTAINTY</span><h2>一组假设，<span class="gradient-text">多种结果</span></h2><p>在明确的参数区间内抽样，观察模型结论的稳定性。</p></div><span class="section-trail">SENSITIVITY / NOT PROBABILITIES</span></div>
+      <div class="section-title"><div><span class="section-index">04 <i></i> 不确定性</span><h2>一组假设，<span class="gradient-text">多种结果</span></h2><p>在明确的参数区间内抽样，观察模型结论的稳定性。</p></div><span class="section-trail">参数敏感性 · 非概率预测</span></div>
       <div class="uncertainty-grid">
-        <div class="panel uncertainty-panel"><span class="overline">2035 / BASELINE SIMULATIONS</span><h3>参数敏感性区间</h3><p>横线表示模拟结果中间 90% 的范围，圆点表示中位数。这些范围不代表现实发生概率。</p><div id="uncertaintyPlot" class="uncertainty-plot"></div></div>
-        <div class="panel uncertainty-side"><span class="overline">METHODOLOGY NOTICE</span><h3>认识不确定性，<br>不等于消除不确定性。</h3><p>模拟参数在研究者设定的范围内随机取值，并非根据历史数据计算出真实发生概率。</p><div class="uncertainty-count"><strong id="drawCount">—</strong><span>PAIRED SIMULATIONS</span></div><div class="callout-mini">这些范围仅反映模型对参数假设的敏感程度，不能用来判断现实中发生的概率。</div></div>
+        <div class="panel uncertainty-panel"><span class="overline">2035 / 基准情景模拟</span><h3>参数敏感性区间</h3><p>横线表示模拟结果中间 90% 的范围，圆点表示中位数。这些范围不代表现实发生概率。</p><div id="uncertaintyPlot" class="uncertainty-plot"></div></div>
+        <div class="panel uncertainty-side"><span class="overline">研究方法说明</span><h3>认识不确定性，<br>不等于消除不确定性。</h3><p>模拟参数在研究者设定的范围内随机取值，并非根据历史数据计算出真实发生概率。</p><div class="uncertainty-count"><strong id="drawCount">—</strong><span>组配对模拟</span></div><div class="callout-mini">这些范围仅反映模型对参数假设的敏感程度，不能用来判断现实中发生的概率。</div></div>
       </div>
     </section>
 
-    <section id="methodology" class="method-section"><div><span class="section-index">05 <i></i> METHODOLOGY</span><h2>保持可验证，<br>也保持克制。</h2><p>这是一个开放的探索性研究项目。真实数据、预测基准与产业模拟遵循不同的证据等级。我们公开模型代码、输入数据与识别限制，避免把情景模拟解释成经过实证验证的因果预测。</p><a href="https://github.com/ifrvn/ai-semiconductor-feedback/blob/main/docs/empirical_validation.md" target="_blank" rel="noopener noreferrer">阅读验证方法与限制 ↗</a></div><div class="method-list"><div><span>01</span><strong>真实数据</strong><p>Epoch AI 加速器理论性能/美元、SIA 全球半导体销售额</p></div><div><span>02</span><strong>可检验模型</strong><p>按时间划分训练与测试，比较简单基准和趋势模型</p></div><div><span>03</span><strong>假设性模拟</strong><p>产业建设延迟、产能瓶颈及 AI 反馈系数尚未校准</p></div></div></section>
+    <section id="methodology" class="method-section"><div><span class="section-index">05 <i></i> 研究方法</span><h2>保持可验证，<br>也保持克制。</h2><p>这是一个开放的探索性研究项目。真实数据、预测基准与产业模拟遵循不同的证据等级。我们公开模型代码、输入数据与识别限制，避免把情景模拟解释成经过实证验证的因果预测。</p><a href="https://github.com/ifrvn/ai-semiconductor-feedback/blob/main/docs/empirical_validation.md" target="_blank" rel="noopener noreferrer">阅读验证方法与限制 ↗</a></div><div class="method-list"><div><span>01</span><strong>真实数据</strong><p>Epoch AI 加速器理论性能/美元、SIA 全球半导体销售额</p></div><div><span>02</span><strong>可检验模型</strong><p>按时间划分训练与测试，比较简单基准和趋势模型</p></div><div><span>03</span><strong>假设性模拟</strong><p>产业建设延迟、产能瓶颈及 AI 反馈系数尚未校准</p></div></div></section>
   </main>
-  <footer><div class="shell footer-inner"><div><span class="brand-mark small">F<span>·</span>O</span><span>FEEDBACK OBSERVATORY</span></div><span>OPEN RESEARCH PROJECT · DATA NOT FINANCIAL OR TECHNOLOGY FORECASTS</span><a href="https://github.com/ifrvn/ai-semiconductor-feedback" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></footer>
+  <footer><div class="shell footer-inner"><div><span class="brand-mark small">F<span>·</span>O</span><span>FEEDBACK OBSERVATORY</span></div><span>开放研究 PROJECT · DATA NOT FINANCIAL OR TECHNOLOGY FORECASTS</span><a href="https://github.com/ifrvn/ai-semiconductor-feedback" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></footer>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
   <script src="./i18n.js?v=20261030f" defer></script>
   <script src="./app.js?v=20261030f" defer></script>

@@ -26,6 +26,9 @@ class SectorParams:
     scarcity_elasticity: float=1.5
     maximum_markup: float=4.
     investment_fraction: float=.36
+    expansion_project_financing: float=.75
+    capacity_gap_response: float=.8
+    maximum_gap_ratio: float=2.
     ai_research_fraction: float=.20
     external_funding: float=.14
     revenue_per_delivery: float=.8
@@ -56,7 +59,8 @@ class SectorParams:
         for k in ("cost_floor","demand_growth","demand_income_elasticity","initial_demand",
                   "scarcity_elasticity","maximum_markup","investment_fraction",
                   "ai_research_fraction","external_funding","revenue_per_delivery",
-                  "reinvestment_fraction","capital_decay","ai_ability_gain",
+                  "reinvestment_fraction","capital_decay","expansion_project_financing",
+                  "capacity_gap_response","maximum_gap_ratio","ai_ability_gain",
                   "ai_compute_exponent","ai_ceiling","ai_decay","shock_multiplier"):
             v=getattr(self,k)
             if not isfinite(v) or v<0:

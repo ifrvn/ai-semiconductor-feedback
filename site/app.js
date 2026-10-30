@@ -143,10 +143,13 @@ function scenarios(){
   const labels=base.map(x=>String(Math.round(x.year)));
   $("#scenarioChartTitle").textContent=metrics[state.metric]+"随时间变化";
   $("#scenarioLegend").textContent=scenarioNames[state.scenario];
-  svgChart($("#scenarioChart"),[
-    {name:"基准",points:base.map((r,index)=>({index,value:r[state.metric]}))},
-    {name:scenarioNames[state.scenario],points:alternative.map((r,index)=>({index,value:r[state.metric]}))}
-  ],labels,{sparse:2});
+  const chartSeries=[
+    {name:"基准",points:base.map((r,index)=>({index,value:r[state.metric]}))}
+  ];
+  if(state.scenario!=="baseline"){
+    chartSeries.push({name:scenarioNames[state.scenario],points:alternative.map((r,index)=>({index,value:r[state.metric]}))});
+  }
+  svgChart($("#scenarioChart"),chartSeries,labels,{sparse:2});
   $$("#scenarioChips button").forEach(b=>b.classList.toggle("selected",b.dataset.scenario===state.scenario));
   capacity();
 }

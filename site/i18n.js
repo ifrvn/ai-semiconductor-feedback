@@ -134,6 +134,10 @@
   translations["相对产能指数"] = "Relative capacity index";
   translations[" 个历史预测检验点"] = " historical forecast test points";
   translations["仅为模型模拟，不代表实际预测。"] = "Simulation only; not a real-world forecast.";
+  translations["模拟交付量指数"] = "Modeled delivery index";
+  translations["模拟交付指数"] = "Modeled delivery index";
+  translations["相对指数 · 假设情景模拟（非真实预测）"] = "Relative index · Hypothetical simulation (not a forecast)";
+  translations["使用假设参数的四部门模型，比较不同冲击下的产能、成本与 AI 能力。扩产资金包括模型内部投资与单独设定的外部项目融资，资金规模未经实证校准。"] = "Compare four-sector capacity, costs, and AI capability under hypothetical assumptions. Expansion is funded by internal investment and separately assumed external project financing, neither calibrated to observed industry financing.";
   const saved=(()=>{try{return localStorage.getItem("feedback-language")}catch(_){return null}})();
   let locale=saved==="en"||saved==="zh-CN"?saved:(navigator.language&&navigator.language.toLowerCase().startsWith("zh")?"zh-CN":"en");
   const originals=new WeakMap();

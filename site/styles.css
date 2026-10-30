@@ -178,3 +178,26 @@ html[data-theme="light"] .toast { background:#e8f6f1;color:#183c38;border-color:
  .cap-name,.cap-tag { font-size:12px; }
  .cap-num { font-size:26px; }
 }
+
+/* Interactive line-chart inspection */
+.plot{position:relative;touch-action:pan-y}
+.plot svg{cursor:crosshair}
+.hover-guide{stroke:#90b7b4;stroke-width:1.4;stroke-dasharray:5 5;pointer-events:none}
+.hover-markers{pointer-events:none}
+.chart-tooltip{
+ position:absolute;z-index:5;min-width:205px;max-width:min(290px,calc(100% - 16px));
+ transform:translateX(-50%);padding:13px 15px;
+ border:1px solid #5a8585;background:#132a34;color:#eaf4f2;
+ box-shadow:0 12px 30px rgba(0,0,0,.3);pointer-events:none;
+ font-size:14px;line-height:1.5
+}
+.chart-tooltip[hidden]{display:none}
+.chart-tooltip-title{font:600 14px var(--mono);color:#b6d8d5;margin-bottom:10px}
+.chart-tooltip-row{display:flex;align-items:center;gap:9px;margin-top:6px;white-space:nowrap}
+.chart-tooltip-row strong{margin-left:auto;font:600 14px var(--mono);color:#fff}
+.chart-tooltip-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex:none}
+html[data-theme="light"] .hover-guide{stroke:#507e83}
+html[data-theme="light"] .chart-tooltip{background:#fff;color:#203a42;border-color:#a4c4c5;box-shadow:0 12px 25px rgba(25,61,65,.16)}
+html[data-theme="light"] .chart-tooltip-title{color:#426a70}
+html[data-theme="light"] .chart-tooltip-row strong{color:#163b42}
+@media(max-width:750px){.chart-tooltip{min-width:165px;padding:10px 12px;font-size:12px}.chart-tooltip-row strong,.chart-tooltip-title{font-size:12px}}

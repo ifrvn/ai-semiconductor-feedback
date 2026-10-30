@@ -1,0 +1,9 @@
+period,component,share_pct,scope,source_url,source_date
+2024-Q1,memory,51.87,accelerator_components_only,https://epoch.ai/data-insights/ai-chip-component-cost-shares,2026-05-21
+2024-Q1,logic,14.16,accelerator_components_only,https://epoch.ai/data-insights/ai-chip-component-cost-shares,2026-05-21
+2024-Q1,packaging,18.89,accelerator_components_only,https://epoch.ai/data-insights/ai-chip-component-cost-shares,2026-05-21
+2024-Q1,auxiliary,15.08,accelerator_components_only,https://epoch.ai/data-insights/ai-chip-component-cost-shares,2026-05-21
+2025-Q4,memory,63.42,accelerator_components_only,https://epoch.ai/data-insights/ai-chip-component-cost-shares,2026-05-21
+2025-Q4,logic,12.93,accelerator_components_only,https://epoch.ai/data-insights/ai-chip-component-cost-shares,2026-05-21
+2025-Q4,packaging,14.82,accelerator_components_only,https://epoch.ai/data-insights/ai-chip-component-cost-shares,2026-05-21
+2025-Q4,auxiliary,8.83,accelerator_components_only,https://epoch.ai/data-insights/ai-chip-component-cost-shares,2026-05-21

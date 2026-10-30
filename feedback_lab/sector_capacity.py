@@ -122,8 +122,14 @@ def simulate_sectors(p:SectorParams=SectorParams(), *, end_year:float=2045.,
         physical=sum(w*x for w,x in zip(p.cost_weights,costs))
         markup=min(p.maximum_markup,max(1.,(demand/max(cap,1e-12))**p.scarcity_elasticity))
         price=physical*markup
-        investment=p.investment_fraction*B
-        commitments=tuple(investment*w for w in p.investment_weights)
+        # Internal investment reduces B; project financing is spent directly.
+        investment=p.investment_fraction*B+p.expansion_project_financing
+        pressures=[min(p.maximum_gap_ratio,max(0.,demand/max(c,1e-12)-1.))
+                   for c in capacities]
+        scores=[w*(1.+p.capacity_gap_response*g)
+                for w,g in zip(p.investment_weights,pressures)]
+        total_score=sum(scores)
+        commitments=tuple(investment*s/total_score for s in scores)
         research=min(p.ai_research_fraction*B/max(price,1e-12),delivered)
         output.append(SectorState(year,A,B,tuple(capacities),tuple(costs),demand,
                                   delivered,bottleneck,physical,price,markup,

@@ -6,6 +6,14 @@
   <meta name="theme-color" content="#0b1119">
   <meta name="description" content="AI × 半导体产业反馈研究：历史数据、样本外检验、模拟情景与不确定性。">
   <title>AI × Semiconductor · Feedback Observatory</title>
+  <script>
+    (() => {
+      let saved;
+      try { saved = localStorage.getItem("feedback-theme"); } catch (_) {}
+      const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = saved === "light" || saved === "dark" ? saved : preferred;
+    })();
+  </script>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
@@ -17,6 +25,7 @@
       <nav class="nav" aria-label="主导航">
         <a href="#evidence">实证数据</a><a href="#validation">模型检验</a><a href="#scenarios">情景模拟</a><a href="#uncertainty">不确定性</a>
       </nav>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="切换明亮或深色主题" aria-pressed="false"><span class="theme-icon" aria-hidden="true">☀</span><span class="theme-text">白天模式</span></button>
       <a class="github-link" href="https://github.com/ifrvn/ai-semiconductor-feedback" target="_blank" rel="noopener noreferrer">SOURCE CODE <span aria-hidden="true">↗</span></a>
     </div>
   </header>

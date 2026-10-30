@@ -167,6 +167,8 @@
   translations["% / 年"] = "% / year";
   translations["相对指数 · 假设模拟（非预测）"] = "Relative index · Hypothetical simulation (not a forecast)";
   translations["选择「基准」时仅显示基准曲线；选择其他情景时增加虚线进行对比。数值均为模型指数，不是真实预测值。"] = "Baseline shows one curve; other scenarios add a dashed comparison curve. All values are illustrative model indices, not forecasts.";
+  translations["五种情景始终叠加展示。点击上方情景按钮可高亮对应曲线，其余曲线淡化，便于比较。数值均为模型指数，不是真实预测值。"] = "All five scenarios appear together. Select a scenario above to highlight its curve and fade the others for comparison. Values are illustrative model indices, not forecasts.";
+  translations["五种情景图例"] = "Five-scenario legend";
   const saved=(()=>{try{return localStorage.getItem("feedback-language")}catch(_){return null}})();
   let locale=saved==="en"||saved==="zh-CN"?saved:(navigator.language&&navigator.language.toLowerCase().startsWith("zh")?"zh-CN":"en");
   const originals=new WeakMap();

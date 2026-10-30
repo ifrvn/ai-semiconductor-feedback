@@ -87,6 +87,16 @@ python -m feedback_lab.dynamic_experiments --output results/dynamic_components.c
 
 Five scenarios compare baseline trends, removal of AI-to-chip feedback, a hypothetical memory breakthrough, an energy bottleneck, and faster logic progress alone. See [assumptions and limitations](docs/dynamic_components.md). These runs are not empirical forecasts.
 
+## Four-sector capacity, investment and scarcity (Phase 5)
+
+The [four-sector capacity model](docs/sector_capacity.md) separates wafer fabrication, HBM, advanced packaging and power, with independent investment allocation, construction delays, depreciation, supply-constrained deliveries, and a **separate scarcity market-price wedge**. All coefficients and shocks are scenario assumptions, not empirical forecasts.
+
+```bash
+python -m feedback_lab.sector_experiments --output results/sector_capacity.csv
+```
+
+Compare baseline, no AI-to-chip-cost improvement, HBM capacity expansion, packaging shortage and power shortage. This is a complementary exploratory model, not yet a joint, empirically calibrated integration with the component throughput model.
+
 ## Research agenda
 
 1. Build a provenance-controlled dataset from primary sources, with dated observations, units, inflation adjustment and uncertainty intervals.

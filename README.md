@@ -57,6 +57,16 @@ python -m feedback_lab.calibration --output results/calibration.json
 
 This computes spending-weighted quarterly hardware price-performance, estimates a descriptive log-linear trend, evaluates a 2025 temporal holdout, and generates a JSON report of **identified vs. unidentified** quantities. See [methodology and limitations](docs/calibration.md). Source records retain dates, units and attribution. No observed inputs are fabricated.
 
+## AI-to-chip causal evidence (Phase 2)
+
+An attributed [study evidence ledger](data/evidence/ai_semiconductor_studies.csv) and [methodology note](docs/ai_chip_evidence.md) now distinguish controlled virtual experiments, EDA vendor case studies, industrial predictive validation and production outcomes.
+
+```bash
+python -m feedback_lab.evidence --output results/evidence_audit.json
+```
+
+The output explicitly flags the sector-wide feedback parameters as **unidentified**. The `feedback_lab.identification.did_2x2` utility provides a paired pre/post comparison for a future project-level treated/control panel (not yet available); it does **not** manufacture effect estimates or statistical confidence.
+
 ## Research agenda
 
 1. Build a provenance-controlled dataset from primary sources, with dated observations, units, inflation adjustment and uncertainty intervals.

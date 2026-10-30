@@ -97,6 +97,14 @@ python -m feedback_lab.sector_experiments --output results/sector_capacity.csv
 
 Compare baseline, no AI-to-chip-cost improvement, HBM capacity expansion, packaging shortage and power shortage. This is a complementary exploratory model, not yet a joint, empirically calibrated integration with the component throughput model.
 
+## Uncertainty and identifiability (Phase 6)
+
+The [uncertainty study](docs/uncertainty.md) draws reproducible, analyst-defined ranges for the four-sector model, runs paired AI-feedback/no-feedback counterfactuals, and reports sensitivity quantiles. **These are not empirical confidence intervals or calibrated forecasts.**
+
+```bash
+python -m feedback_lab.uncertainty --samples 200 --seed 20261030 --output results/uncertainty.json
+```
+
 ## Research agenda
 
 1. Build a provenance-controlled dataset from primary sources, with dated observations, units, inflation adjustment and uncertainty intervals.

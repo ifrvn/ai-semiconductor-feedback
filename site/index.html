@@ -11,10 +11,36 @@
       let saved;
       try { saved = localStorage.getItem("feedback-theme"); } catch (_) {}
       const preferred = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-      document.documentElement.dataset.theme = saved === "light" || saved === "dark" ? saved : preferred;
+      const root = document.documentElement;
+      root.dataset.theme = saved === "light" || saved === "dark" ? saved : preferred;
+
+      function renderTheme() {
+        const light = root.dataset.theme === "light";
+        const button = document.getElementById("themeToggle");
+        if (button) {
+          button.setAttribute("aria-pressed", String(light));
+          button.setAttribute("aria-label", light ? "切换为深色模式" : "切换为白天模式");
+          const icon = button.querySelector(".theme-icon");
+          const label = button.querySelector(".theme-text");
+          if (icon) icon.textContent = light ? "☾" : "☀";
+          if (label) label.textContent = light ? "深色模式" : "白天模式";
+        }
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", light ? "#f3f7f8" : "#0b1119");
+      }
+
+      // Delegated handler works independently of the chart/data bundle.
+      document.addEventListener("click", (event) => {
+        const button = event.target.closest && event.target.closest("#themeToggle");
+        if (!button) return;
+        root.dataset.theme = root.dataset.theme === "light" ? "dark" : "light";
+        try { localStorage.setItem("feedback-theme", root.dataset.theme); } catch (_) {}
+        renderTheme();
+      });
+      document.addEventListener("DOMContentLoaded", renderTheme);
     })();
   </script>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./styles.css?v=20261030b">
 </head>
 <body>
   <div class="ambient ambient-a" aria-hidden="true"></div>
@@ -92,6 +118,6 @@
   </main>
   <footer><div class="shell footer-inner"><div><span class="brand-mark small">F<span>·</span>O</span><span>FEEDBACK OBSERVATORY</span></div><span>OPEN RESEARCH PROJECT · DATA NOT FINANCIAL OR TECHNOLOGY FORECASTS</span><a href="https://github.com/ifrvn/ai-semiconductor-feedback" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div></footer>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
-  <script src="./app.js" defer></script>
+  <script src="./app.js?v=20261030b" defer></script>
 </body>
 </html>

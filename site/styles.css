@@ -204,3 +204,11 @@ html[data-theme="light"] .chart-tooltip-row strong{color:#163b42}
 
 /* Position is now computed in chart-local CSS pixels; no centering transform. */
 .chart-tooltip{transform:none;box-sizing:border-box}
+
+/* Language selection */
+.language-toggle{display:inline-flex;align-items:center;justify-content:center;min-height:42px;min-width:53px;padding:9px 12px;background:transparent;border:1px solid #49606a;color:var(--text);font:600 13px var(--mono);cursor:pointer;white-space:nowrap}
+.language-toggle:hover{border-color:var(--cyan);background:rgba(112,223,219,.1)}
+html[data-theme="light"] .language-toggle{border-color:#a9c1c5;color:#243d47}
+html[data-locale="en"] .hero h1{letter-spacing:-.045em}
+html[data-locale="en"] .lead{max-width:620px}
+@media(max-width:750px){.language-toggle{min-width:45px;padding:8px 10px}.topbar-inner{gap:9px}.github-link{padding:10px 9px}}

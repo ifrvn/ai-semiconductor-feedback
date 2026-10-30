@@ -212,3 +212,15 @@ html[data-theme="light"] .language-toggle{border-color:#a9c1c5;color:#243d47}
 html[data-locale="en"] .hero h1{letter-spacing:-.045em}
 html[data-locale="en"] .lead{max-width:620px}
 @media(max-width:750px){.language-toggle{min-width:45px;padding:8px 10px}.topbar-inner{gap:9px}.github-link{padding:10px 9px}}
+
+/* Five-scenario overlay: muted context lines and selected focus line. */
+#scenarioChart .scenario-focused{stroke-linecap:round;stroke-linejoin:round}
+#scenarioChart .scenario-muted{stroke-linecap:round;stroke-linejoin:round}
+#scenarioChips .chip.selected{border-color:var(--scenario-color);box-shadow:inset 0 -2px var(--scenario-color)}
+.scenario-all-legend{display:flex;flex-wrap:wrap;gap:8px 15px;align-items:center}
+.scenario-legend-item{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.scenario-legend-item.is-muted{opacity:.52}
+.scenario-legend-item.is-focused{font-weight:700;opacity:1}
+.scenario-swatch{display:inline-block;width:17px;height:3px;flex:none}
+.sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:750px){.scenario-all-legend{gap:7px 10px}.scenario-legend-item{font-size:10px}}

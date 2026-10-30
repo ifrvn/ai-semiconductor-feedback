@@ -32,14 +32,17 @@ function svgChart(element, series, labels, options={}){
   const width=1040,height=310;
   const m={left:64,right:16,top:24,bottom:37};
   const w=width-m.left-m.right,h=height-m.top-m.bottom;
-  const flat=series.flatMap(s=>s.points.map((p)=>p.value)).filter(Number.isFinite);
+  const flat=series.flatMap(s=>s.points.map(p=>p.value)).filter(Number.isFinite);
   if(!flat.length){element.textContent="暂无可展示数据";return}
   let min=Math.min(...flat),max=Math.max(...flat);
   if(Math.abs(max-min)<1e-10){min-=Math.abs(min)*.1+.1;max+=Math.abs(max)*.1+.1}
   else{const span=max-min;min=Math.max(0,min-span*.14);max+=span*.14}
-  const x=(i)=>m.left+(labels.length===1?0.5:i/(labels.length-1))*w;
-  const y=(v)=>m.top+(max-v)/(max-min)*h;
-  const grid=Array.from({length:5},(_,i)=>{const value=min+(max-min)*i/4;return `<line class="grid-line" x1="${m.left}" x2="${width-m.right}" y1="${y(value)}" y2="${y(value)}"/><text class="axis-label" x="${m.left-12}" y="${y(value)+4}" text-anchor="end">${fmt(value,value>10?1:2)}</text>`}).join("");
+  const x=i=>m.left+(labels.length===1?.5:i/(labels.length-1))*w;
+  const y=v=>m.top+(max-v)/(max-min)*h;
+  const grid=Array.from({length:5},(_,i)=>{
+    const value=min+(max-min)*i/4;
+    return `<line class="grid-line" x1="${m.left}" x2="${width-m.right}" y1="${y(value)}" y2="${y(value)}"/><text class="axis-label" x="${m.left-12}" y="${y(value)+4}" text-anchor="end">${fmt(value,value>10?1:2)}</text>`;
+  }).join("");
   const ticks=labels.map((label,i)=>{
     const sparse=options.sparse || Math.max(1,Math.ceil(labels.length/7));
     if(i%sparse!==0 && i!==labels.length-1)return "";
@@ -49,10 +52,50 @@ function svgChart(element, series, labels, options={}){
     const points=s.points.map(p=>({x:x(p.index),y:y(p.value),value:p.value,index:p.index})).filter(p=>Number.isFinite(p.value));
     const line=points.map((p,i)=>`${i?"L":"M"}${fmt(p.x,2)},${fmt(p.y,2)}`).join(" ");
     const color=index===0?"#70dfdb":"#d6f17d";
-    const dots=points.map((p,i)=>options.allDots || i===points.length-1 ? `<circle cx="${p.x}" cy="${p.y}" r="4" fill="${color}" stroke="#12222c" stroke-width="2"><title>${s.name} · ${labels[p.index]}: ${fmt(p.value,3)}</title></circle>`:"").join("");
+    const dots=points.map((p,i)=>options.allDots || i===points.length-1 ?
+      `<circle cx="${p.x}" cy="${p.y}" r="4" fill="${color}" stroke="#12222c" stroke-width="2"><title>${s.name} · ${labels[p.index]}: ${fmt(p.value,3)}</title></circle>`:"").join("");
     return `<path class="${index===0?"chart-path":"chart-path chart-path-alt"}" d="${line}" stroke="${color}"/>${dots}`;
   }).join("");
-  element.innerHTML=`<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${grid}${ticks}${geometry}</svg>`;
+  const marker=`<line class="hover-guide" x1="0" x2="0" y1="${m.top}" y2="${m.top+h}" visibility="hidden" />
+    <g class="hover-markers"></g>`;
+  element.innerHTML=`<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">${grid}${ticks}${geometry}${marker}</svg>
+    <div class="chart-tooltip" role="status" aria-live="off" hidden></div>`;
+  const svg=element.querySelector("svg"),guide=element.querySelector(".hover-guide");
+  const markers=element.querySelector(".hover-markers"),tooltip=element.querySelector(".chart-tooltip");
+  const colors=["#70dfdb","#d6f17d"];
+  function show(index){
+    const px=x(index),label=labels[index];
+    guide.setAttribute("x1",px);guide.setAttribute("x2",px);guide.setAttribute("visibility","visible");
+    markers.innerHTML=series.map((s,i)=>{
+      const point=s.points.find(p=>p.index===index);
+      return point && Number.isFinite(point.value)?
+        `<circle cx="${px}" cy="${y(point.value)}" r="7" fill="${colors[i%colors.length]}" stroke="#10232b" stroke-width="3"/>`:"";
+    }).join("");
+    const values=series.map((s,i)=>{
+      const point=s.points.find(p=>p.index===index);
+      return point && Number.isFinite(point.value)?
+        `<div class="chart-tooltip-row"><span class="chart-tooltip-dot" style="background:${colors[i%colors.length]}"></span><span>${s.name}</span><strong>${fmt(point.value,4)}</strong></div>`:"";
+    }).join("");
+    tooltip.innerHTML=`<div class="chart-tooltip-title">${label}</div>${values}`;
+    tooltip.hidden=false;
+    const ratio=px/width;
+    tooltip.style.left=`${clamp(ratio*100,16,84)}%`;
+    tooltip.style.top="12px";
+  }
+  function fromPointer(event){
+    const bounds=svg.getBoundingClientRect();
+    if(!bounds.width)return;
+    const localX=(event.clientX-bounds.left)/bounds.width*width;
+    const index=clamp(Math.round((localX-m.left)/w*(labels.length-1)),0,labels.length-1);
+    show(index);
+  }
+  svg.addEventListener("pointermove",fromPointer);
+  svg.addEventListener("pointerdown",fromPointer);
+  element.addEventListener("pointerleave",()=>{
+    guide.setAttribute("visibility","hidden");
+    markers.innerHTML="";
+    tooltip.hidden=true;
+  });
 }
 
 function history(){

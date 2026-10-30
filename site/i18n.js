@@ -116,6 +116,24 @@
   "基准情景": "Baseline scenario",
   "模型数据，非真实预测。": "Model output, not a real-world forecast."
 };
+  translations["2025 年预测检验：最低误差"] = "2025 forecast test: lowest error";
+  translations["2025 年预测检验"] = "2025 forecast test";
+  translations["历史数据预测效果对比"] = "Historical forecast accuracy comparison";
+  translations["使用对数均方根误差（Log RMSE）比较预测结果，数值越小越准确。"] = "Compare forecasts using log root mean squared error (Log RMSE); lower values indicate better accuracy.";
+  translations["用过去的数据预测之后的季度，再与实际结果比较，检验模型能否预测未知数据。"] = "Forecast later quarters using earlier data, then compare with observations to test performance on unseen data.";
+  translations["历史观测数据与模型模拟分开展示。目前仅检验了硬件性能与价格指标的历史预测效果；未来产业情景、建设延迟及 AI 对芯片产业的影响强度尚未用真实数据验证，因此模拟结果不代表未来预测。"] = "Historical observations and simulations are shown separately. Only historical forecasting performance of the hardware performance-price metric has been tested. Future industry scenarios, construction delays, and the strength of AI's impact on chips have not been validated with real-world data. Simulations are not forecasts.";
+  translations["按销售金额加权计算的理论算力性价比；未计入实际使用率、网络和电力成本。"] = "Theoretical compute value weighted by sales revenue; excludes actual utilization, networking, and electricity costs.";
+  translations["实线表示正常假设下的基准结果，虚线表示改变某项条件后的对比结果。数值均为便于比较的模型指数，不是真实预测值。"] = "Solid line: baseline assumptions. Dashed line: results under an altered assumption. Values are comparative model indices, not real-world forecasts.";
+  translations["拖动年份，查看各产业环节在模型中的相对产能指数（不是实际产量）。"] = "Move the year slider to compare modeled relative capacity across sectors (not actual production).";
+  translations["横线表示模拟结果中间 90% 的范围，圆点表示中位数。这些范围不代表现实发生概率。"] = "The line covers the middle 90% of simulation results; the dot marks the median. This is not a real-world probability estimate.";
+  translations["模拟参数在研究者设定的范围内随机取值，并非根据历史数据计算出真实发生概率。"] = "Model parameters are sampled within analyst-defined ranges, not inferred as real-world probabilities from historical data.";
+  translations["这些范围仅反映模型对参数假设的敏感程度，不能用来判断现实中发生的概率。"] = "These ranges reflect sensitivity to modeling assumptions, not real-world likelihood.";
+  translations["尚无足够数据证明因果影响"] = "Insufficient data to establish a causal effect";
+  translations["每美元理论性能"] = "Theoretical performance per USD";
+  translations["推算单位成本"] = "Implied unit cost";
+  translations["相对产能指数"] = "Relative capacity index";
+  translations[" 个历史预测检验点"] = " historical forecast test points";
+  translations["仅为模型模拟，不代表实际预测。"] = "Simulation only; not a real-world forecast.";
   const saved=(()=>{try{return localStorage.getItem("feedback-language")}catch(_){return null}})();
   let locale=saved==="en"||saved==="zh-CN"?saved:(navigator.language&&navigator.language.toLowerCase().startsWith("zh")?"zh-CN":"en");
   const originals=new WeakMap();

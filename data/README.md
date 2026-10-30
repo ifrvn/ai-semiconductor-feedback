@@ -22,3 +22,5 @@ For expanded fitting, track `date,metric,value,unit,geography,source_url,accesse
 Potential additional primary sources: [Epoch AI datasets](https://epoch.ai/data), [Stanford AI Index](https://aiindex.stanford.edu/report/), [SEMI](https://www.semi.org/), SEC company filings, and matched AI-assisted EDA or foundry-process studies.
 
 Do **not** conflate hardware peak throughput, realized useful training/inference compute, AI capability, chip shipments, semiconductor sales, fab capacity or industry capital stock.
+
+- `raw/epoch_component_shares_2024q1_2025q4.csv`: eight measured component-share records transcribed from [Epoch AI, May 2026](https://epoch.ai/data-insights/ai-chip-component-cost-shares), Creative Commons Attribution; two quarters of 4 vendors' accelerator-component spending mix, **not** complete data-center cost shares. See [cost transmission methodology](../docs/cost_transmission.md).

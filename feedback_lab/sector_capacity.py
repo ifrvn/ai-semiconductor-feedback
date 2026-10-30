@@ -87,8 +87,8 @@ class SectorState:
     ai_research_compute:float
 
 def delayed(history:list[tuple[float,tuple[float,...]]],target:float,index:int)->float:
-    # Constant zero pre-history: no new capacity can arrive before build_delay.
-    if target<=history[0][0]: return 0.
+    # No commitments before the first actual investment date. Never linearly\n    # interpolate between a synthetic prehistory zero and first real commitment.
+    if len(history) < 2 or target < history[1][0]: return 0.
     for j in range(1,len(history)):
         t1,v1=history[j]
         if target<=t1:

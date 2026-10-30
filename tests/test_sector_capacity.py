@@ -27,6 +27,26 @@ class MultiSectorTests(unittest.TestCase):
         b=simulate_sectors(scenarios()["hbm_capacity_breakthrough"],end_year=2032.)[-1]
         self.assertGreater(b.capacity[1],a.capacity[1])
         self.assertAlmostEqual(b.capacity[0],a.capacity[0])
+    def test_gradual_shock_no_instant_jump(self):
+        base=simulate_sectors(end_year=2031.)[-1]
+        shocked=simulate_sectors(scenarios()["hbm_capacity_breakthrough"],end_year=2031.)[-1]
+        self.assertAlmostEqual(shocked.capacity[1],base.capacity[1],places=7)
+        later=simulate_sectors(scenarios()["hbm_capacity_breakthrough"],end_year=2032.)[-1]
+        self.assertGreater(later.capacity[1],simulate_sectors(end_year=2032.)[-1].capacity[1])
+
+    def test_gradual_shortage_starts_smoothly(self):
+        base=simulate_sectors(end_year=2030.)[-1]
+        shocked=simulate_sectors(scenarios()["packaging_shortage"],end_year=2030.)[-1]
+        self.assertAlmostEqual(shocked.capacity[2],base.capacity[2],places=7)
+        later=simulate_sectors(scenarios()["packaging_shortage"],end_year=2031.)[-1]
+        self.assertLess(later.capacity[2],simulate_sectors(end_year=2031.)[-1].capacity[2])
+
+    def test_shock_duration_validation(self):
+        with self.assertRaises(ValueError):
+            simulate_sectors(SectorParams(shock_duration=0.))
+        with self.assertRaises(ValueError):
+            simulate_sectors(SectorParams(shock_multiplier=0.))
+
     def test_scarcity_is_not_physical_cost(self):
         p=SectorParams(initial_demand=.05,demand_growth=0.,demand_income_elasticity=0.,
                        natural_cost_progress=(0.,)*4,ai_cost_progress=(0.,)*4)

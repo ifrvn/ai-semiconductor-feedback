@@ -11,6 +11,13 @@ const scenarioNames = {
   packaging_shortage: "先进封装短缺",
   power_shortage: "电力供应短缺"
 };
+const scenarioColors = {
+  baseline:"#70dfdb",
+  no_ai_chip_feedback:"#d6f17d",
+  hbm_capacity_breakthrough:"#e8ae69",
+  packaging_shortage:"#bd9df4",
+  power_shortage:"#ee899d"
+};
 const metrics = {
   A: "AI 能力指数",
   delivered: "模拟交付量指数",
@@ -48,13 +55,17 @@ function svgChart(element, series, labels, options={}){
     if(i%sparse!==0 && i!==labels.length-1)return "";
     return `<text class="axis-label" x="${x(i)}" y="${height-9}" text-anchor="middle">${label}</text>`;
   }).join("");
-  const geometry=series.map((s,index)=>{
+  const orderedSeries=options.focusScenario
+    ? [...series].sort((a,b)=>(a.key===options.focusScenario?1:0)-(b.key===options.focusScenario?1:0))
+    : series;
+  const geometry=orderedSeries.map((s,index)=>{
     const points=s.points.map(p=>({x:x(p.index),y:y(p.value),value:p.value,index:p.index})).filter(p=>Number.isFinite(p.value));
     const line=points.map((p,i)=>`${i?"L":"M"}${fmt(p.x,2)},${fmt(p.y,2)}`).join(" ");
-    const color=index===0?"#70dfdb":"#d6f17d";
+    const color=s.color || (index===0?"#70dfdb":"#d6f17d");
+    const focused=!options.focusScenario || s.key===options.focusScenario;
     const dots=points.map((p,i)=>options.allDots || i===points.length-1 ?
       `<circle cx="${p.x}" cy="${p.y}" r="4" fill="${color}" stroke="#12222c" stroke-width="2"><title>${s.name} · ${labels[p.index]}: ${fmt(p.value,3)}</title></circle>`:"").join("");
-    return `<path class="${index===0?"chart-path":"chart-path chart-path-alt"}" d="${line}" stroke="${color}"/>${dots}`;
+    return `<path class="chart-path ${focused?"scenario-focused":"scenario-muted"}" d="${line}" stroke="${color}" style="stroke:${color};stroke-width:${focused?3.8:1.8};opacity:${focused?1:.38}"/>${focused?dots:""}`;
   }).join("");
   const marker=`<line class="hover-guide" x1="0" x2="0" y1="${m.top}" y2="${m.top+h}" visibility="hidden" />
     <g class="hover-markers"></g>`;
@@ -62,7 +73,7 @@ function svgChart(element, series, labels, options={}){
     <div class="chart-tooltip" role="status" aria-live="off" hidden></div>`;
   const svg=element.querySelector("svg"),guide=element.querySelector(".hover-guide");
   const markers=element.querySelector(".hover-markers"),tooltip=element.querySelector(".chart-tooltip");
-  const colors=["#70dfdb","#d6f17d"];
+  const colors=series.map((s,i)=>s.color || ["#70dfdb","#d6f17d"][i%2]);
   function show(index){
     const px=x(index),label=labels[index];
     guide.setAttribute("x1",px);guide.setAttribute("x2",px);guide.setAttribute("visibility","visible");
@@ -130,28 +141,27 @@ function validation(){
   $("#validationCount").textContent=(obj.test_n || obj.origin_count)+" 个历史预测检验点";
 }
 
-function selectedSeries(){
-  const records=state.dataset.sectors;
-  return {
-    base:records.filter(r=>r.scenario==="baseline"),
-    alternative:records.filter(r=>r.scenario===state.scenario)
-  };
-}
-
 function scenarios(){
-  const {base,alternative}=selectedSeries();
+  const keys=Object.keys(scenarioNames);
+  const base=state.dataset.sectors.filter(r=>r.scenario==="baseline");
   const labels=base.map(x=>String(Math.round(x.year)));
   $("#scenarioChartTitle").textContent=metrics[state.metric]+"随时间变化";
+  const chartSeries=keys.map(key=>({
+    key,name:scenarioNames[key],color:scenarioColors[key],
+    points:state.dataset.sectors.filter(r=>r.scenario===key)
+      .map((r,index)=>({index,value:r[state.metric]}))
+  }));
+  svgChart($("#scenarioChart"),chartSeries,labels,{sparse:2,focusScenario:state.scenario});
   $("#scenarioLegend").textContent=scenarioNames[state.scenario];
-  $("#scenarioAlternativeLegend").hidden=state.scenario==="baseline";
-  const chartSeries=[
-    {name:"基准",points:base.map((r,index)=>({index,value:r[state.metric]}))}
-  ];
-  if(state.scenario!=="baseline"){
-    chartSeries.push({name:scenarioNames[state.scenario],points:alternative.map((r,index)=>({index,value:r[state.metric]}))});
-  }
-  svgChart($("#scenarioChart"),chartSeries,labels,{sparse:2});
-  $$("#scenarioChips button").forEach(b=>b.classList.toggle("selected",b.dataset.scenario===state.scenario));
+  $$("#scenarioChips button").forEach(b=>{
+    const active=b.dataset.scenario===state.scenario;
+    b.classList.toggle("selected",active);
+    b.setAttribute("aria-pressed",String(active));
+    b.style.setProperty("--scenario-color",scenarioColors[b.dataset.scenario]);
+  });
+  $("#scenarioAllLegend").innerHTML=keys.map(key=>
+    `<span class="scenario-legend-item ${key===state.scenario?"is-focused":"is-muted"}"><span class="scenario-swatch" style="background:${scenarioColors[key]}"></span>${scenarioNames[key]}</span>`
+  ).join("");
   capacity();
 }
 
@@ -188,7 +198,7 @@ function wire(){
   $("#validationSelect").addEventListener("change",e=>{state.evaluation=e.target.value;validation()});
   $("#scenarioMetric").addEventListener("change",e=>{state.metric=e.target.value;scenarios()});
   $("#yearRange").addEventListener("input",e=>{state.year=Number(e.target.value);capacity()});
-  $("#scenarioChips").innerHTML=Object.entries(scenarioNames).map(([key,name])=>`<button class="chip ${key===state.scenario?"selected":""}" data-scenario="${key}">${name}</button>`).join("");
+  $("#scenarioChips").innerHTML=Object.entries(scenarioNames).map(([key,name])=>`<button type="button" class="chip ${key===state.scenario?"selected":""}" data-scenario="${key}" aria-pressed="${key===state.scenario}">${name}</button>`).join("");
   $$("#scenarioChips button").forEach(b=>b.addEventListener("click",()=>{state.scenario=b.dataset.scenario;scenarios()}));
 }
 

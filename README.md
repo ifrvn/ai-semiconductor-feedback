@@ -1,3 +1,5 @@
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 > **Interactive dashboard:** [Feedback Observatory](https://ifrvn.github.io/ai-semiconductor-feedback/) · [GitHub Pages setup & local preview](site/README.md). First-time deployment requires **Settings → Pages → Source: GitHub Actions**. The link becomes available only after a successful Pages deployment.
 
 # AI–Semiconductor Feedback Lab

@@ -154,19 +154,19 @@
     }
   }
   function walk(root){
-    if(root.nodeType===3){updateText(root);return}
+    if(root.nodeType===3){if(!root.parentElement?.closest("#languageToggle"))updateText(root);return}
     if(root.nodeType!==1&&root.nodeType!==9&&root.nodeType!==11)return;
     if(root.nodeType===1){
-      if(root.closest&&root.closest("script,style"))return;
+      if(root.closest&&root.closest("script,style,#languageToggle"))return;
       updateAttrs(root);
     }
     const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
     while(walker.nextNode()){
       const node=walker.currentNode;
-      if(node.parentElement&&node.parentElement.closest("script,style"))continue;
+      if(node.parentElement&&node.parentElement.closest("script,style,#languageToggle"))continue;
       updateText(node);
     }
-    if(root.querySelectorAll)for(const el of root.querySelectorAll("[aria-label],[title],[placeholder],meta[name=description]"))updateAttrs(el);
+    if(root.querySelectorAll)for(const el of root.querySelectorAll("[aria-label],[title],[placeholder],meta[name=description]"))if(el.id!=="languageToggle")updateAttrs(el);
   }
   function render(){
     document.documentElement.lang=locale;

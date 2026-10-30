@@ -13,7 +13,7 @@ const scenarioNames = {
 };
 const metrics = {
   A: "AI 能力指数",
-  delivered: "实际交付量",
+  delivered: "模拟交付量指数",
   market_price: "市场采购价格",
   physical_cost: "生产成本指数"
 };
@@ -159,7 +159,7 @@ function capacity(){
     const val=row["capacity_"+key],low=row.bottleneck===key;
     return `<div class="cap-card ${low?"bottleneck":""}"><div class="cap-name">${label}</div><div class="cap-num">${fmt(val,2)}</div><div class="cap-track"><div class="cap-fill" style="width:${fmt(clamp(val/1.6*100,0,100),1)}%"></div></div><div class="cap-tag">${low?"● 当前产能瓶颈":"相对产能指数"}</div></div>`;
   }).join("");
-  $("#capacityNote").textContent=`${state.year} 年：${sectorNames[row.bottleneck]}构成供给瓶颈。需求 ${fmt(row.requested_demand,2)}，实际交付 ${fmt(row.delivered,2)}，市场价格指数 ${fmt(row.market_price,2)}。仅为模型模拟，不代表实际预测。`;
+  $("#capacityNote").textContent=`${state.year} 年：${sectorNames[row.bottleneck]}构成供给瓶颈。需求 ${fmt(row.requested_demand,2)}，模拟交付指数 ${fmt(row.delivered,2)}，市场价格指数 ${fmt(row.market_price,2)}。仅为模型模拟，不代表实际预测。`;
 }
 
 function uncertainty(){
@@ -167,7 +167,7 @@ function uncertainty(){
   $("#drawCount").textContent=data.samples;
   const fields=[
     ["A","AI 能力指数"],
-    ["delivered","实际交付量"],
+    ["delivered","模拟交付量指数"],
     ["physical_cost","生产成本指数"],
     ["market_price","市场价格指数"]
   ];

@@ -184,4 +184,4 @@ function initThemeToggle(){
   reflect();
 }
 
-document.addEventListener("DOMContentLoaded",()=>{initThemeToggle();start();});
+document.addEventListener("DOMContentLoaded",start);

@@ -29,6 +29,8 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+      - name: Run sector model regression tests
+        run: PYTHONPATH=. python -m unittest tests.test_sector_capacity
       - name: Build dashboard data
         run: PYTHONPATH=. python site/build_data.py
       - name: Validate generated asset

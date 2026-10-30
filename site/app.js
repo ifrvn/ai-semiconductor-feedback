@@ -150,4 +150,38 @@ async function start(){
     }
   }
 }
-document.addEventListener("DOMContentLoaded",start);
+
+function initThemeToggle(){
+  const root=document.documentElement;
+  const button=$("#themeToggle");
+  const media=window.matchMedia ? window.matchMedia("(prefers-color-scheme: light)") : null;
+  function reflect(){
+    const light=root.dataset.theme==="light";
+    button.setAttribute("aria-pressed",String(light));
+    button.setAttribute("aria-label",light?"切换为深色模式":"切换为白天模式");
+    button.querySelector(".theme-icon").textContent=light?"☾":"☀";
+    button.querySelector(".theme-text").textContent=light?"深色模式":"白天模式";
+    const meta=document.querySelector('meta[name="theme-color"]');
+    if(meta)meta.setAttribute("content",light?"#f3f7f8":"#0b1119");
+  }
+  button.addEventListener("click",()=>{
+    root.dataset.theme=root.dataset.theme==="light"?"dark":"light";
+    try {localStorage.setItem("feedback-theme",root.dataset.theme);} catch (_) {}
+    reflect();
+  });
+  if(media){
+    const updateOnSystem=()=>{
+      let saved=null;
+      try {saved=localStorage.getItem("feedback-theme");} catch (_) {}
+      if(saved!=="dark" && saved!=="light"){
+        root.dataset.theme=media.matches?"light":"dark";
+        reflect();
+      }
+    };
+    if(media.addEventListener)media.addEventListener("change",updateOnSystem);
+    else if(media.addListener)media.addListener(updateOnSystem);
+  }
+  reflect();
+}
+
+document.addEventListener("DOMContentLoaded",()=>{initThemeToggle();start();});

@@ -12,8 +12,12 @@ All states use illustrative normalized values with time in years. `q_i` is a **c
 
 ```text
 i in {wafer, HBM, packaging, power}
-I_i(t) = investment_fraction * B(t) * allocation_i
-dq_i/dt = productivity_i * I_i(t-delay_i) - depreciation_i*q_i
+I_total(t) = investment_fraction * B(t) + expansion_project_financing
+pressure_i(t) = min(maximum_gap_ratio, max(0, demand(t)/q_i(t) - 1))
+allocation_i(t) = weight_i*(1 + capacity_gap_response*pressure_i) / sum_j(weight_j*(1 + capacity_gap_response*pressure_j))
+I_i(t) = I_total(t) * allocation_i(t)
+dq_i/dt = productivity_i * I_i(t-delay_i) - depreciation_i*q_i + shock_rate_i(t)*q_i
+shock_rate_i(t) = ln(M)/D for shock_year <= t < shock_year+D, otherwise 0
 dc_i/dt = -(g0_i + feedback_on*gAI_i*A/(2+A))*(c_i-cost_floor)
 
 required_demand(t) = initial_demand*exp(demand_growth*time)*B^income_elasticity
@@ -27,7 +31,7 @@ dB/dt = external_funding + reinvest_fraction*revenue_per_delivery*deliveries
         - (investment_fraction + ai_research_fraction + capital_decay)*B
 ```
 
-Delayed capital commitments only become capacity once the full corresponding sector delay has passed. Pre-2026 investment commitments are **zero**, rather than fabricated historical capital stocks. Construction delays are fixed; AI cost progress affects physical per-unit component costs only. Scarcity affects the **market purchase price**, not physical production costs or the delivered supply count. Therefore scarcity does not create extra physical output.
+Here the default gradual shock duration is D=3 years, and M is the cumulative capacity multiplier relative to otherwise identical instantaneous sector dynamics. The implementation applies the multiplicative factor exp(log(M)*overlap/D) to each step after the usual capex/depreciation update; this is an operator-split numerical approximation, not an empirically calibrated production response. There is no jump at shock onset. Because investment is dynamically reallocated, the final scenario-vs-baseline capacity ratio need not equal M exactly.\n\nExternal project financing (default 0.75 normalized units/year) is directly spent on sector expansion and never credited to B. The separate external_funding flow is credited to B; internal investment and AI research are debited from B.\n\nDelayed capital commitments only become capacity once the full corresponding sector delay has passed. Pre-2026 investment commitments are **zero**, rather than fabricated historical capital stocks. Construction delays are fixed; AI cost progress affects physical per-unit component costs only. Scarcity affects the **market purchase price**, not physical production costs or the delivered supply count. Therefore scarcity does not create extra physical output.
 
 The four cost weights and capital shares are synthetic scenario parameters. `physical_unit_cost` is an illustrative amortized normalized cost proxy; costs of a newly built plant are not consistently linked to `capex_productivity` yet, which is a limitation.
 
@@ -47,7 +51,7 @@ Scenarios:
 - 2031 packaging capacity shock
 - 2031 power capacity shock
 
-These are **counterfactual thought experiments**, not real 2031/2032 event predictions.
+These are **counterfactual thought experiments**, not predictions of events in 2030–2034. The shocks describe additional relative changes layered onto ongoing depreciation, expansion, and endogenous investment; they do not imply that final observed capacity must equal a particular percentage of the baseline.
 
 ## Identification and limitations
 

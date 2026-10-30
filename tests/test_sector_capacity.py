@@ -44,6 +44,24 @@ class MultiSectorTests(unittest.TestCase):
             simulate_sectors(SectorParams(build_delay=(0.,2.,2.,3.)))
         with self.assertRaises(ValueError):
             simulate_sectors(dt=3.)
+    def test_expansion_financing_is_not_double_counted(self):
+        base=simulate_sectors(SectorParams(expansion_project_financing=0.),end_year=2026.05)[-1]
+        funded=simulate_sectors(end_year=2026.05)[-1]
+        self.assertAlmostEqual(base.B,funded.B)
+        self.assertGreater(funded.investment,base.investment)
+
+    def test_gap_response_redirects_projects(self):
+        p=SectorParams(initial_capacity=(1.15,.45,1.,1.1))
+        responsive=simulate_sectors(p,end_year=2031.)[-1]
+        neutral=simulate_sectors(replace(p,capacity_gap_response=0.),end_year=2031.)[-1]
+        self.assertGreater(responsive.capacity[1],neutral.capacity[1])
+
+    def test_financing_supports_capacity_recovery(self):
+        funded=simulate_sectors(end_year=2035.)[-1]
+        unfunded=simulate_sectors(SectorParams(expansion_project_financing=0.),end_year=2035.)[-1]
+        self.assertGreater(funded.delivered,unfunded.delivered)
+        self.assertGreater(funded.delivered,.90)
+
     def test_export(self):
         self.assertEqual(len(annual_rows(end_year=2028.)),15)
 

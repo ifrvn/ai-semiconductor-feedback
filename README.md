@@ -47,6 +47,16 @@ CSV data can be plotted with other tools without installing matplotlib.
 - `data/README.md`: provenance and empirical calibration plan
 - `docs/model.md`: equations, assumptions and limitations
 
+## Historical observations and partial calibration
+
+The repository now includes attributed historical rows from Epoch AI (2023 Q1–2025 Q4 quarterly AI-chip theoretical price-performance) and SIA (2022–2025 global semiconductor sales). These datasets are **not** sufficient to identify the five-state dynamic model's causal parameters.
+
+```bash
+python -m feedback_lab.calibration --output results/calibration.json
+```
+
+This computes spending-weighted quarterly hardware price-performance, estimates a descriptive log-linear trend, evaluates a 2025 temporal holdout, and generates a JSON report of **identified vs. unidentified** quantities. See [methodology and limitations](docs/calibration.md). Source records retain dates, units and attribution. No observed inputs are fabricated.
+
 ## Research agenda
 
 1. Build a provenance-controlled dataset from primary sources, with dated observations, units, inflation adjustment and uncertainty intervals.

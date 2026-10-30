@@ -1,3 +1,5 @@
+> **Interactive dashboard:** [Feedback Observatory](https://ifrvn.github.io/ai-semiconductor-feedback/) · [GitHub Pages setup & local preview](site/README.md). First-time deployment requires **Settings → Pages → Source: GitHub Actions**. The link becomes available only after a successful Pages deployment.
+
 # AI–Semiconductor Feedback Lab
 
 A reproducible **exploratory** Python model of the co-evolution of AI capabilities, effective compute cost, semiconductor capacity, commercialization delay, and investable capital.

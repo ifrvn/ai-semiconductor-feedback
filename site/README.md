@@ -45,3 +45,13 @@ The four-sector simulation separates **internal investment** (`investment_fracti
 Each period, investment is allocated across wafer, HBM, packaging and power using baseline investment weights multiplied by a bounded demand-to-capacity gap signal. Projects add capacity only after the sector-specific construction delay; existing capacity still depreciates. The model starts with no committed construction pipeline before 2026, so an initial supply dip can persist even with higher investment.
 
 **Important:** 0.75 and the responsiveness parameters are illustrative assumptions, not estimates of actual industry financing. The model does not infer physical chip shipment volumes. These choices should be stress-tested and replaced with empirically supported financing and build-out data before forecasting. The uncertainty sampler now varies both external project financing and gap responsiveness. Neither the baseline nor sensitivity ranges should be interpreted as a forecast.
+
+## Gradual scenario shocks (default)
+
+The dashboard overlays all five scenario trajectories. Three capacity scenarios now use a **three-year multiplicative ramp** instead of a one-time capacity jump. For an affected sector, the model adds a log growth rate `ln(M)/3` during the active interval (implemented as a per-step multiplicative adjustment after normal depreciation and construction-lagged additions).
+
+- HBM breakthrough: 2031–2034, `M=1.60`.
+- Advanced packaging shortage: 2030–2033, `M=0.65`.
+- Power shortage: 2030–2033, `M=0.65`.
+
+The multiplier describes the direct shock relative to the sector's ongoing dynamics, not a guaranteed final ratio to the baseline: endogenous investment reallocation and bottlenecks can change the difference. The years and magnitudes are analyst assumptions, **not forecasts of actual events**. The dashboard includes an expandable explanation of the simulation method, and [the technical model document](../docs/sector_capacity.md) provides equations and limitations.

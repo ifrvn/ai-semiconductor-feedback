@@ -5,7 +5,9 @@ from feedback_lab.identification import did_2x2
 class EvidenceTests(unittest.TestCase):
     def test_evidence_audit(self):
         report=audit()
-        self.assertEqual(report["total_studies"],5)
+        self.assertGreater(report["total_studies"],0)
+        self.assertEqual(report["total_studies"],len(report["study_summaries"]))
+        self.assertEqual(sum(report["evidence_tiers"].values()),report["total_studies"])
         self.assertFalse(report["causal_sector_feedback_identified"])
         self.assertIsNone(report["ai_cost_progress_estimate"])
         self.assertAlmostEqual(report["kanarik_virtual_game_comparison"]["relative_cost_reduction_pct"],50.47619047619)

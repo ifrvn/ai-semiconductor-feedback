@@ -224,3 +224,13 @@ html[data-locale="en"] .lead{max-width:620px}
 .scenario-swatch{display:inline-block;width:17px;height:3px;flex:none}
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:750px){.scenario-all-legend{gap:7px 10px}.scenario-legend-item{font-size:10px}}
+
+/* Expandable, readable scenario methodology */
+.scenario-method{border:1px solid #36545d;margin:16px 0 20px;background:rgba(31,66,72,.13)}
+.scenario-method summary{cursor:pointer;padding:15px 19px;color:var(--text);font-size:14px;font-weight:650}
+.scenario-method summary span{font-size:12px;font-weight:400;color:var(--muted);margin-left:10px}
+.scenario-method-body{padding:0 19px 15px;display:grid;gap:10px}
+.scenario-method-body p{font-size:13px;line-height:1.85;margin:0;color:var(--text)}
+.scenario-method-body a{color:var(--cyan);text-decoration:underline}
+html[data-theme="light"] .scenario-method{background:#f7fbfa;border-color:#c2d5d7}
+@media(max-width:750px){.scenario-method summary span{display:block;margin:5px 0 0}.scenario-method-body{gap:13px}}

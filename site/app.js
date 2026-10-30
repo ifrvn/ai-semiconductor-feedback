@@ -143,6 +143,7 @@ function scenarios(){
   const labels=base.map(x=>String(Math.round(x.year)));
   $("#scenarioChartTitle").textContent=metrics[state.metric]+"随时间变化";
   $("#scenarioLegend").textContent=scenarioNames[state.scenario];
+  $("#scenarioAlternativeLegend").hidden=state.scenario==="baseline";
   const chartSeries=[
     {name:"基准",points:base.map((r,index)=>({index,value:r[state.metric]}))}
   ];

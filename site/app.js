@@ -115,7 +115,7 @@ function svgChart(element, series, labels, options={}){
 function history(){
   const rows=state.dataset.history.quarterly;
   const isPerf=state.historyMetric==="performance_per_usd";
-  svgChart($("#historyChart"),[{name:isPerf?"性能/美元":"单位成本",points:rows.map((row,index)=>({index,value:row[state.historyMetric]}))}],
+  svgChart($("#historyChart"),[{name:isPerf?"性能/美元":"推算单位成本",points:rows.map((row,index)=>({index,value:row[state.historyMetric]}))}],
     rows.map(r=>r.quarter.replace("-"," '").replace("Q","Q")),{allDots:true,sparse:2});
   $$("#historyMetric button").forEach(b=>b.classList.toggle("selected",b.dataset.metric===state.historyMetric));
 }
@@ -127,7 +127,7 @@ function validation(){
   const best=Math.min(...values.map(v=>v.value));
   const upper=Math.max(...values.map(v=>v.value))*1.1;
   $("#validationBars").innerHTML=values.map(v=>`<div class="vbar"><div class="vbar-meta"><span>${v.label}${Math.abs(v.value-best)<1e-9?'<span class="vbar-best">● BEST</span>':''}</span><span class="vbar-value">${fmt(v.value,3)}</span></div><div class="vbar-track"><div class="vbar-fill ${Math.abs(v.value-best)<1e-9?"best":""}" style="width:${fmt(100*v.value/upper,2)}%"></div></div></div>`).join("");
-  $("#validationCount").textContent=(obj.test_n || obj.origin_count)+" 个样本外预测点";
+  $("#validationCount").textContent=(obj.test_n || obj.origin_count)+" 个历史预测检验点";
 }
 
 function selectedSeries(){
@@ -157,9 +157,9 @@ function capacity(){
   $("#yearReadout").textContent=state.year;
   $("#capacityBars").innerHTML=Object.entries(sectorNames).map(([key,label])=>{
     const val=row["capacity_"+key],low=row.bottleneck===key;
-    return `<div class="cap-card ${low?"bottleneck":""}"><div class="cap-name">${label}</div><div class="cap-num">${fmt(val,2)}</div><div class="cap-track"><div class="cap-fill" style="width:${fmt(clamp(val/1.6*100,0,100),1)}%"></div></div><div class="cap-tag">${low?"● 当前产能瓶颈":"归一化供应能力"}</div></div>`;
+    return `<div class="cap-card ${low?"bottleneck":""}"><div class="cap-name">${label}</div><div class="cap-num">${fmt(val,2)}</div><div class="cap-track"><div class="cap-fill" style="width:${fmt(clamp(val/1.6*100,0,100),1)}%"></div></div><div class="cap-tag">${low?"● 当前产能瓶颈":"相对产能指数"}</div></div>`;
   }).join("");
-  $("#capacityNote").textContent=`${state.year} 年：${sectorNames[row.bottleneck]}构成供给瓶颈。需求 ${fmt(row.requested_demand,2)}，实际交付 ${fmt(row.delivered,2)}，市场价格指数 ${fmt(row.market_price,2)}。模型数据，非真实预测。`;
+  $("#capacityNote").textContent=`${state.year} 年：${sectorNames[row.bottleneck]}构成供给瓶颈。需求 ${fmt(row.requested_demand,2)}，实际交付 ${fmt(row.delivered,2)}，市场价格指数 ${fmt(row.market_price,2)}。仅为模型模拟，不代表实际预测。`;
 }
 
 function uncertainty(){

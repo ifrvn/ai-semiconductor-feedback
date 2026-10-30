@@ -78,9 +78,23 @@ function svgChart(element, series, labels, options={}){
     }).join("");
     tooltip.innerHTML=`<div class="chart-tooltip-title">${label}</div>${values}`;
     tooltip.hidden=false;
-    const ratio=px/width;
-    tooltip.style.left=`${clamp(ratio*100,16,84)}%`;
-    tooltip.style.top="12px";
+    // SVG uses viewBox coordinates while tooltip is an HTML element in CSS pixels.
+    // Anchor to the selected data point, then keep the whole tooltip in bounds.
+    const rect=svg.getBoundingClientRect();
+    const pointYs=series.map(s=>s.points.find(p=>p.index===index))
+      .filter(p=>p && Number.isFinite(p.value)).map(p=>y(p.value));
+    const anchorY=pointYs.length?Math.min(...pointYs):m.top;
+    const anchorX=px/width*rect.width;
+    const anchorTop=anchorY/height*rect.height;
+    const tipWidth=tooltip.offsetWidth,tipHeight=tooltip.offsetHeight;
+    const gap=14,pad=8;
+    const left=clamp(anchorX+gap,pad,Math.max(pad,rect.width-tipWidth-pad));
+    const above=anchorTop-tipHeight-gap;
+    const below=anchorTop+gap;
+    const top=above>=pad?above:below+tipHeight<=rect.height-pad?below:
+      clamp(above,pad,Math.max(pad,rect.height-tipHeight-pad));
+    tooltip.style.left=`${left}px`;
+    tooltip.style.top=`${top}px`;
   }
   function fromPointer(event){
     const bounds=svg.getBoundingClientRect();

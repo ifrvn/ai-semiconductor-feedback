@@ -16,3 +16,4 @@ jobs:
       - run: python -m feedback_lab.evidence --output results/evidence_audit.json
       - run: python -m feedback_lab.transmission --output results/transmission.json
       - run: python -m feedback_lab.dynamic_experiments --end-year 2030 --output results/dynamic_smoke.csv
+      - run: python -m feedback_lab.sector_experiments --end-year 2030 --output results/sector_smoke.csv

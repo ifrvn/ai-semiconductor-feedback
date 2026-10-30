@@ -37,7 +37,7 @@ function svgChart(element, series, labels, options={}){
   let min=Math.min(...flat),max=Math.max(...flat);
   if(Math.abs(max-min)<1e-10){min-=Math.abs(min)*.1+.1;max+=Math.abs(max)*.1+.1}
   else{const span=max-min;min=Math.max(0,min-span*.14);max+=span*.14}
-  const x=(i)=>m.left+(labels.length===1?.5:i/(labels.length-1))*w;
+  const x=(i)=>m.left+(labels.length===1?0.5:i/(labels.length-1))*w;
   const y=(v)=>m.top+(max-v)/(max-min)*h;
   const grid=Array.from({length:5},(_,i)=>{const value=min+(max-min)*i/4;return `<line class="grid-line" x1="${m.left}" x2="${width-m.right}" y1="${y(value)}" y2="${y(value)}"/><text class="axis-label" x="${m.left-12}" y="${y(value)+4}" text-anchor="end">${fmt(value,value>10?1:2)}</text>`}).join("");
   const ticks=labels.map((label,i)=>{
